@@ -1,0 +1,1 @@
+export const baseUrl = import.meta.env.API_SERVER || "http://localhost:5000";

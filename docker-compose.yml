@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  client:
+    container_name: 'client'
+    ports:
+      - '80:80'
+    build:    
+      context: ./client
+      dockerfile: DockerFile
+      args:
+        API_SERVER: ${API_SERVER}
+    networks:
+      - mynetworks
+    depends_on:
+      - app1
+
+  app1:
+    container_name: 'app1'
+    ports:
+      - '5000:5000'
+    build:     
+      context: ./server
+      dockerfile: DockerFile
+    environment:
+      - DB_HOST=${Mysql_host}
+      - DB_USER=${MySql_Db_User}
+      - DB_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - DB_Name=${MySql_Db}
+    networks:
+      - mynetworks
+    depends_on:
+      - mysqldb
+
+  mysqldb:
+    container_name: 'mysqldb'
+    # ports:
+    #   - '3306:3306'
+    build: 
+      context: ./db
+      dockerfile: DockerFile
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}    
+    # volumes:
+    #   - db_data:/var/lib/mysql
+    networks:
+      - mynetworks
+
+networks:
+  mynetworks:
+    driver: bridge
+
+# volumes:
+#   db_data:
