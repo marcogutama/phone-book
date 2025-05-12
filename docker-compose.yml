@@ -32,21 +32,14 @@ services:
 
   mysqldb:
     container_name: 'mysqldb'
-    # ports:
-    #   - '3306:3306'
     build: 
       context: ./db
       dockerfile: Dockerfile
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}    
-    # volumes:
-    #   - db_data:/var/lib/mysql
     networks:
       - mynetworks
 
 networks:
   mynetworks:
     driver: bridge
-
-# volumes:
-#   db_data:
