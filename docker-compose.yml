@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   client:
     container_name: 'client'
@@ -7,7 +5,7 @@ services:
       - '80:80'
     build:    
       context: ./client
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
       args:
         API_SERVER: ${API_SERVER}
     networks:
@@ -21,7 +19,7 @@ services:
       - '5000:5000'
     build:     
       context: ./server
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
     environment:
       - DB_HOST=${Mysql_host}
       - DB_USER=${MySql_Db_User}
@@ -38,7 +36,7 @@ services:
     #   - '3306:3306'
     build: 
       context: ./db
-      dockerfile: DockerFile
+      dockerfile: Dockerfile
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}    
     # volumes:

@@ -9,7 +9,7 @@ RUN npm install
 COPY . ./
 
 ARG API_SERVER
-ENV API_SERVER=${API_SERVER}
+ENV VITE_API_URL=http://${API_SERVER}:5000
 
 RUN ["npm", "run", "build"]
 
